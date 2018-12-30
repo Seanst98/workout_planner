@@ -34,7 +34,9 @@ class ExercisePageCycle extends StatelessWidget {
   Widget build(BuildContext context) {
     return new ListView.builder(
       padding: EdgeInsets.all(16.0),
+      itemCount: 7,
       itemBuilder: (context, i) {
+
         return new Column(
           children: <Widget>[
             new GestureDetector(
@@ -43,10 +45,26 @@ class ExercisePageCycle extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    new ListTile(
+                    new ExpansionTile(
                       leading: Icon(Icons.adb),
-                      title: Text('Day: $i'),
+                      title: Text('Day: ' + (i+1).toString()),
                       trailing: Icon(Icons.done_outline),
+
+                      children: <Widget>[
+
+                        new Card(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              new ListTile(
+                                title: Text("Expanded"),
+                              )
+                            ],
+                          ),
+                        )
+
+                      ],
+
                     )
                   ],
                 ),
