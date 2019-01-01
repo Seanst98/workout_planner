@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(ExercisesPage());
+  runApp(ProgramPage());
 }
 
-class ExercisesPage extends StatefulWidget {
+class ProgramPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new ExercisesPageState();
+    return new ProgramPageState();
   }
 }
 
-class ExercisesPageState extends State<ExercisesPage> {
+class ProgramPageState extends State<ProgramPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +21,16 @@ class ExercisesPageState extends State<ExercisesPage> {
           title: new Text('Workout Planner'),
         ),
         body: new Center(
-          child: new ExercisePageCycle(),
+          child: new ProgramPageCycle(),
         )
       ),
     );
   }
 }
 
-class ExercisePageCycle extends StatelessWidget {
+class ProgramPageCycle extends StatelessWidget {
+
+  final exerciseList = ['Bench', 'Squat', 'Deadlift'];
 
   @override
   Widget build(BuildContext context) {
@@ -41,29 +43,73 @@ class ExercisePageCycle extends StatelessWidget {
           children: <Widget>[
             new GestureDetector(
 
+              onTap: () {
+                Navigator.of(context).push(
+                  new MaterialPageRoute<void>(
+                    builder: (BuildContext context) {
+                      return new Scaffold(
+                        appBar: AppBar(
+                          title: Text("Exercises"),
+                        ),
+
+                        body: Center(
+                          child: ListView.builder(
+                            padding: EdgeInsets.all(16.0),
+                            itemCount: 3,
+                            itemBuilder: (context, j) {
+                              return new Card(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    new ExpansionTile(
+                                      leading: Icon(Icons.adb),
+                                      title: Text(exerciseList[j]),
+
+                                      children: <Widget>[
+                                        Card(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: <Widget>[
+                                              new ListTile(
+                                                trailing: Icon(Icons.done_outline),
+                                                title: Text('3 Reps at 100kg'),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Card(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: <Widget>[
+                                              new ListTile(
+                                                trailing: Icon(Icons.done_outline),
+                                                title: Text('5 Reps at 80kg'),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    }
+                  )
+                );
+              },
+
               child: new Card(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    new ExpansionTile(
+                    new ListTile(
                       leading: Icon(Icons.adb),
                       title: Text('Day: ' + (i+1).toString()),
                       trailing: Icon(Icons.done_outline),
-
-                      children: <Widget>[
-
-                        new Card(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              new ListTile(
-                                title: Text("Expanded"),
-                              )
-                            ],
-                          ),
-                        )
-
-                      ],
 
                     )
                   ],
